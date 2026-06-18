@@ -17,7 +17,7 @@ export default function Sidebar({ activeTab, setActiveTab, stats }: SidebarProps
   return (
     <div className="w-64 bg-[#09090b] border-r border-[#27272a] flex flex-col h-full text-[#a1a1aa] font-sans">
       {/* App Branding */}
-      <div className="p-6 border-b border-[#27272a] bg-[#09090b]">
+      <div className="p-6 border-b border-[#27272a] bg-[#09090b] [-webkit-app-region:drag]">
         <div className="flex items-center gap-2.5">
           <div className="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold text-sm tracking-tight shadow-sm shadow-blue-500/20">
             RA

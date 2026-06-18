@@ -1,20 +1,52 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
-</div>
+# Repo Archaeologist
 
-# Run and deploy your AI Studio app
+A desktop app for exploring the history of a local Git repository: commit
+activity over time, hotspot files (highest churn), code ownership per file,
+and change coupling between files that tend to be edited together.
 
-This contains everything you need to run your app locally.
+## Prerequisites
 
-View your app in AI Studio: https://ai.studio/apps/48d6a123-a6c8-4d82-9200-ea7a65baf658
+- Node.js
+- Git (must be available on your `PATH`)
 
-## Run Locally
-
-**Prerequisites:**  Node.js
-
+## Run locally
 
 1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+   ```
+   npm install
+   ```
+2. Start the app in development mode:
+   ```
+   npm run dev
+   ```
+
+This launches the Electron app with hot reload for the renderer.
+
+## Build
+
+```
+npm run build
+```
+
+Builds the main, preload, and renderer bundles into `out/`.
+
+## How it works
+
+- Click **Open Repository** and pick a local folder (it must contain a
+  `.git` directory).
+- The app analyzes the currently checked-out commit (`HEAD`) using `git`
+  directly (via `simple-git`) — commit history, file hotspots, and change
+  coupling are computed up front; per-file ownership (`git blame`) is
+  computed on demand when you select a file on the Knowledge & Coupling
+  page.
+- Analysis is not cached — reopening a repository re-runs it from scratch.
+
+## Scripts
+
+| Command | Description |
+| --- | --- |
+| `npm run dev` | Start the app in development mode |
+| `npm run build` | Build production bundles |
+| `npm run preview` | Preview a production build |
+| `npm run lint` | Type-check the project |
+| `npm run clean` | Remove build output |

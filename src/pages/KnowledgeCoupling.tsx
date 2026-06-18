@@ -1,27 +1,45 @@
-import { useState } from 'react';
-import { Cpu, Users, Layers, AlertTriangle, FileCode, ArrowRight, HelpCircle, FolderOpen } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { Cpu, Users, Layers, AlertTriangle, FileCode, ArrowRight, HelpCircle, FolderOpen, Loader2 } from 'lucide-react';
 import { ContributorOwnership, ChangeCouplingItem } from '../types';
 
 interface KnowledgeCouplingProps {
-  ownershipData: Record<string, ContributorOwnership[]> | null;
+  eligibleFiles: string[] | null;
+  ownershipMap: Record<string, ContributorOwnership[]>;
+  ownershipLoadingFile: string | null;
+  onSelectFile: (file: string) => void;
   couplingData: ChangeCouplingItem[] | null;
   onOpenRepoClick: () => void;
 }
 
-export default function KnowledgeCoupling({ ownershipData, couplingData, onOpenRepoClick }: KnowledgeCouplingProps) {
+export default function KnowledgeCoupling({
+  eligibleFiles,
+  ownershipMap,
+  ownershipLoadingFile,
+  onSelectFile,
+  couplingData,
+  onOpenRepoClick,
+}: KnowledgeCouplingProps) {
   const [activeTab, setActiveTab] = useState<'ownership' | 'coupling'>('ownership');
-  
-  // List of keys of files with ownership data
-  const fileList = ownershipData ? Object.keys(ownershipData) : [];
-  const [selectedFile, setSelectedFile] = useState<string>(fileList[0] || '');
 
-  // Auto-sync selected file path when repository loads
-  if (fileList.length > 0 && !ownershipData?.[selectedFile]) {
-    setSelectedFile(fileList[0]);
-  }
+  const fileList = eligibleFiles ?? [];
+  const [selectedFile, setSelectedFile] = useState<string>('');
+
+  // Auto-select the first file once a repository's eligible file list loads
+  useEffect(() => {
+    if (fileList.length > 0 && !fileList.includes(selectedFile)) {
+      setSelectedFile(fileList[0]);
+    }
+  }, [fileList, selectedFile]);
+
+  // Fetch blame data on demand whenever the selected file changes
+  useEffect(() => {
+    if (selectedFile) onSelectFile(selectedFile);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedFile]);
 
   // Get current selected file statistics
-  const currentFileOwnership = ownershipData && selectedFile ? ownershipData[selectedFile] : null;
+  const currentFileOwnership = selectedFile ? ownershipMap[selectedFile] ?? null : null;
+  const isLoadingSelected = ownershipLoadingFile === selectedFile;
 
   // Check if there is any contributor with ownership > 80% (Knowledge Silo)
   const isKnowledgeSilo = currentFileOwnership 
@@ -73,7 +91,7 @@ export default function KnowledgeCoupling({ ownershipData, couplingData, onOpenR
         {activeTab === 'ownership' ? (
           /* SECTION A: OWNERSHIP */
           <div className="space-y-6">
-            {!ownershipData ? (
+            {!eligibleFiles ? (
               /* Ownership empty state */
               <div className="bg-[#09090b] border border-dashed border-[#27272a] rounded-xl p-16 text-center shadow-xs">
                 <div className="p-4 rounded-full bg-[#18181b] border border-[#27272a] mb-4 inline-block">
@@ -151,7 +169,12 @@ export default function KnowledgeCoupling({ ownershipData, couplingData, onOpenR
                       <h4 className="text-[10px] font-bold text-[#52525b] uppercase tracking-widest font-sans">
                         Author Contribution Breakdown
                       </h4>
-                      {currentFileOwnership ? (
+                      {isLoadingSelected ? (
+                        <div className="flex items-center gap-2 text-xs text-[#a1a1aa] font-mono py-4">
+                          <Loader2 className="h-3.5 w-3.5 animate-spin text-blue-500" />
+                          Running blame analysis...
+                        </div>
+                      ) : currentFileOwnership ? (
                         <div className="space-y-3.5">
                           {currentFileOwnership.map((item) => (
                             <div key={item.name} className="space-y-1">

@@ -33,10 +33,39 @@ export interface ChangeCouplingItem {
   coChanges: number;
 }
 
-export interface MockRepoData {
+export interface AnalysisResult {
   stats: RepoStats;
   commitActivity: CommitActivityPoint[];
   hotspots: HotspotItem[];
-  fileOwnership: Record<string, ContributorOwnership[]>;
   coupling: ChangeCouplingItem[];
+  ownershipEligibleFiles: string[];
+}
+
+export interface RepoOpenError {
+  message: string;
+}
+
+export interface OwnershipReportEntry {
+  file: string;
+  contributors: ContributorOwnership[];
+  knowledgeSilo: boolean;
+}
+
+export interface ExportReport {
+  repository: {
+    name: string;
+    totalCommits: number;
+    totalContributors: number;
+    filesTracked: number;
+    firstCommitDate: string;
+    latestCommitDate: string;
+  };
+  hotspots: HotspotItem[];
+  ownership: OwnershipReportEntry[];
+  coupling: ChangeCouplingItem[];
+}
+
+export interface ExportResult {
+  canceled: boolean;
+  filePath?: string;
 }
