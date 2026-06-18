@@ -1,0 +1,120 @@
+import { MockRepoData } from './types';
+
+export const MOCK_REPOS: Record<string, MockRepoData> = {
+  'facebook/react': {
+    stats: {
+      name: 'facebook/react',
+      totalCommits: 14820,
+      totalContributors: 1544,
+      filesTracked: 3240,
+      firstCommitDate: '2013-05-24',
+      latestCommitDate: '2026-06-15',
+      path: '/Users/developer/projects/facebook/react',
+    },
+    commitActivity: [
+      { month: 'Jan', count: 320 },
+      { month: 'Feb', count: 410 },
+      { month: 'Mar', count: 380 },
+      { month: 'Apr', count: 520 },
+      { month: 'May', count: 480 },
+      { month: 'Jun', count: 610 },
+      { month: 'Jul', count: 490 },
+      { month: 'Aug', count: 310 },
+      { month: 'Sep', count: 430 },
+      { month: 'Oct', count: 560 },
+      { month: 'Nov', count: 680 },
+      { month: 'Dec', count: 590 },
+    ],
+    hotspots: [
+      { rank: 1, file: 'packages/react-reconciler/src/ReactFiberWorkLoop.new.js', commits: 842, heat: 'very_high' },
+      { rank: 2, file: 'packages/react-dom/src/client/ReactDOMRoot.js', commits: 512, heat: 'very_high' },
+      { rank: 3, file: 'packages/react-reconciler/src/ReactFiberBeginWork.new.js', commits: 489, heat: 'high' },
+      { rank: 4, file: 'packages/shared/ReactSymbols.js', commits: 231, heat: 'medium' },
+      { rank: 5, file: 'packages/scheduler/src/Scheduler.js', commits: 156, heat: 'medium' },
+      { rank: 6, file: 'packages/react/src/ReactHooks.js', commits: 98, heat: 'low' },
+      { rank: 7, file: 'scripts/rollup/config.js', commits: 82, heat: 'low' },
+    ],
+    fileOwnership: {
+      'packages/react-reconciler/src/ReactFiberWorkLoop.new.js': [
+        { name: 'Dan Abramov', percentage: 45 },
+        { name: 'Sebastian Markbåge', percentage: 38 },
+        { name: 'Andrew Clark', percentage: 12 },
+        { name: 'Others', percentage: 5 },
+      ],
+      'packages/react-dom/src/client/ReactDOMRoot.js': [
+        { name: 'Andrew Clark', percentage: 82 },
+        { name: 'Dan Abramov', percentage: 10 },
+        { name: 'Others', percentage: 8 },
+      ],
+      'packages/shared/ReactSymbols.js': [
+        { name: 'Sebastian Markbåge', percentage: 90 },
+        { name: 'Others', percentage: 10 },
+      ],
+      'packages/scheduler/src/Scheduler.js': [
+        { name: 'Alex Hunt', percentage: 60 },
+        { name: 'Andrew Clark', percentage: 30 },
+        { name: 'Others', percentage: 10 },
+      ],
+    },
+    coupling: [
+      { fileA: 'packages/react-reconciler/src/ReactFiberWorkLoop.js', fileB: 'packages/react-reconciler/src/ReactFiberBeginWork.js', coChanges: 342 },
+      { fileA: 'packages/react-reconciler/src/ReactFiberWorkLoop.js', fileB: 'packages/react-reconciler/src/ReactFiberCommitWork.js', coChanges: 289 },
+      { fileA: 'packages/react/src/ReactHooks.js', fileB: 'packages/react-reconciler/src/ReactFiberHooks.js', coChanges: 143 },
+      { fileA: 'packages/shared/ReactSymbols.js', fileB: 'packages/react-reconciler/src/ReactFiberBeginWork.js', coChanges: 89 },
+      { fileA: 'scripts/rollup/config.js', fileB: 'package.json', coChanges: 54 },
+    ],
+  },
+  'tailwindlabs/tailwindcss': {
+    stats: {
+      name: 'tailwindlabs/tailwindcss',
+      totalCommits: 8430,
+      totalContributors: 421,
+      filesTracked: 1120,
+      firstCommitDate: '2017-10-31',
+      latestCommitDate: '2026-06-12',
+      path: '/Users/developer/projects/tailwindlabs/tailwindcss',
+    },
+    commitActivity: [
+      { month: 'Jan', count: 180 },
+      { month: 'Feb', count: 210 },
+      { month: 'Mar', count: 240 },
+      { month: 'Apr', count: 310 },
+      { month: 'May', count: 290 },
+      { month: 'Jun', count: 340 },
+      { month: 'Jul', count: 250 },
+      { month: 'Aug', count: 190 },
+      { month: 'Sep', count: 220 },
+      { month: 'Oct', count: 280 },
+      { month: 'Nov', count: 310 },
+      { month: 'Dec', count: 260 },
+    ],
+    hotspots: [
+      { rank: 1, file: 'src/processTailwindFeatures.js', commits: 521, heat: 'very_high' },
+      { rank: 2, file: 'src/plugins/preflight.js', commits: 382, heat: 'high' },
+      { rank: 3, file: 'src/util/collapseAdjacentRules.js', commits: 210, heat: 'medium' },
+      { rank: 4, file: 'src/index.js', commits: 184, heat: 'medium' },
+      { rank: 5, file: 'package.json', commits: 125, heat: 'low' },
+    ],
+    fileOwnership: {
+      'src/processTailwindFeatures.js': [
+        { name: 'Adam Wathan', percentage: 74 },
+        { name: 'Robin Malfait', percentage: 20 },
+        { name: 'Others', percentage: 6 },
+      ],
+      'src/plugins/preflight.js': [
+        { name: 'Robin Malfait', percentage: 85 },
+        { name: 'Adam Wathan', percentage: 10 },
+        { name: 'Others', percentage: 5 },
+      ],
+      'src/util/collapseAdjacentRules.js': [
+        { name: 'Adam Wathan', percentage: 92 },
+        { name: 'Others', percentage: 8 },
+      ],
+    },
+    coupling: [
+      { fileA: 'src/processTailwindFeatures.js', fileB: 'src/index.js', coChanges: 188 },
+      { fileA: 'src/plugins/preflight.js', fileB: 'src/plugins/container.js', coChanges: 97 },
+      { fileA: 'src/util/collapseAdjacentRules.js', fileB: 'src/processTailwindFeatures.js', coChanges: 64 },
+    ],
+  },
+};

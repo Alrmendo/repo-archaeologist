@@ -1,0 +1,6 @@
+{
+  "name": "Repo Archaeologist",
+  "description": "A developer tool that visualizes the historical evolution, hotspot file activity, and knowledge ownership of a Git repository.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
